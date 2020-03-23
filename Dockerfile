@@ -9,7 +9,8 @@ RUN apt-get update && \
         curl \
         wget \
         sudo \
-        awscli
+        awscli \
+        make
 
 # Install Helm 3.1.2
 COPY install-helm3.sh .
