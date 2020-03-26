@@ -9,8 +9,11 @@ RUN apt-get update && \
         curl \
         wget \
         sudo \
-        awscli \
+        python3-pip \
         make
+
+# Install awscli
+RUN pip3 install awscli
 
 # Install Helm 3.1.2
 COPY install-helm3.sh .
