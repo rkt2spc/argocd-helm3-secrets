@@ -25,3 +25,6 @@ USER argocd
 # Setup AWS CodeCommit Git credential helper
 RUN git config --global credential.helper '!aws codecommit credential-helper $@'
 RUN git config --global credential.UseHttpPath true
+
+# Setup default AWS region
+RUN aws configure set region ap-southeast-1
