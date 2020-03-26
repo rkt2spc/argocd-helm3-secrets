@@ -31,3 +31,4 @@ RUN git config --global credential.UseHttpPath true
 
 # Setup default AWS region
 RUN aws configure set region ap-southeast-1
+RUN aws configure set output json
