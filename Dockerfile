@@ -25,6 +25,9 @@ RUN helm plugin install https://github.com/futuresimple/helm-secrets
 # Switch back to argocd user
 USER argocd
 
+# Install Helm Secrets at user level
+RUN helm plugin install https://github.com/futuresimple/helm-secrets
+
 # Setup AWS CodeCommit Git credential helper
 RUN git config --global credential.helper '!aws codecommit credential-helper $@'
 RUN git config --global credential.UseHttpPath true
