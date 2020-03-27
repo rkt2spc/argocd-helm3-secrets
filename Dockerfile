@@ -31,14 +31,14 @@ RUN pip3 install awscli
 COPY install-helm3.sh .
 RUN ./install-helm3.sh --no-sudo --version v3.1.2
 
-# Install Helm Secrets
-RUN helm plugin install https://github.com/futuresimple/helm-secrets
-
-# Overwrite Helm Secrets default sops binary with built one
+# Install sops built binary\
 COPY --from=sops /go/bin/sops /usr/local/bin
 
 # Switch back to argocd user
 USER argocd
+
+# Install Helm Secrets
+RUN helm plugin install https://github.com/futuresimple/helm-secrets
 
 # Setup AWS CodeCommit Git credential helper
 RUN git config --global credential.helper '!aws codecommit credential-helper $@'
