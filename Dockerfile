@@ -38,7 +38,7 @@ COPY --from=sops /go/bin/sops /usr/local/bin
 USER argocd
 
 # Install Helm Secrets
-RUN helm plugin install https://github.com/futuresimple/helm-secrets
+RUN helm plugin install https://github.com/rocketspacer/helm-secrets
 
 # Setup AWS CodeCommit Git credential helper
 RUN git config --global credential.helper '!aws codecommit credential-helper $@'
