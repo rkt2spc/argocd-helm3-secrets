@@ -1,3 +1,15 @@
+###############################################################################
+FROM golang:1.13 as sops
+
+RUN apt-get install --yes \
+    make \
+    git
+
+WORKDIR $GOPATH/github.com/mozilla/sops
+RUN git clone --depth 1 --branch v3.5.0 https://github.com/mozilla/sops.git $GOPATH/github.com/mozilla/sops
+RUN make install
+
+###############################################################################
 FROM argoproj/argocd:v1.4.2
 
 # Switch to root user to perform installation
@@ -22,11 +34,11 @@ RUN ./install-helm3.sh --no-sudo --version v3.1.2
 # Install Helm Secrets
 RUN helm plugin install https://github.com/futuresimple/helm-secrets
 
+# Overwrite Helm Secrets default sops binary with built one
+COPY --from=sops /go/bin/sops /usr/local/bin
+
 # Switch back to argocd user
 USER argocd
-
-# Install Helm Secrets at user level
-RUN helm plugin install https://github.com/futuresimple/helm-secrets
 
 # Setup AWS CodeCommit Git credential helper
 RUN git config --global credential.helper '!aws codecommit credential-helper $@'
