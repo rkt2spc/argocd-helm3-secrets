@@ -35,7 +35,7 @@ RUN ./install-helm3.sh --no-sudo --version v3.1.2
 COPY --from=sops /go/bin/sops /usr/local/bin
 
 # Setup AWS CodeCommit Git credential helper
-RUN git config --system credential.helper '!aws codecommit credential-helper $@'
+RUN git config --system credential.helper '!f() { HOME=/home/argocd aws codecommit credential-helper $@ ; }; f'
 RUN git config --system credential.UseHttpPath true
 
 # Switch back to argocd user
