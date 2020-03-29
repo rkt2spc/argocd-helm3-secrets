@@ -34,15 +34,15 @@ RUN ./install-helm3.sh --no-sudo --version v3.1.2
 # Install sops built binary\
 COPY --from=sops /go/bin/sops /usr/local/bin
 
+# Setup AWS CodeCommit Git credential helper
+RUN git config --system credential.helper '!aws codecommit credential-helper $@'
+RUN git config --system credential.UseHttpPath true
+
 # Switch back to argocd user
 USER argocd
 
 # Install Helm Secrets
 RUN helm plugin install https://github.com/rocketspacer/helm-secrets
-
-# Setup AWS CodeCommit Git credential helper
-RUN git config --global credential.helper '!aws codecommit credential-helper $@'
-RUN git config --global credential.UseHttpPath true
 
 # Setup default AWS region
 RUN aws configure set region ap-southeast-1
