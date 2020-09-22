@@ -6,7 +6,7 @@ RUN apt-get install --yes \
     git
 
 WORKDIR $GOPATH/github.com/mozilla/sops
-RUN git clone --depth 1 --branch v3.6.0 https://github.com/mozilla/sops.git $GOPATH/github.com/mozilla/sops
+RUN git clone --depth 1 --branch v3.6.1 https://github.com/mozilla/sops.git $GOPATH/github.com/mozilla/sops
 RUN make install
 
 ###############################################################################
