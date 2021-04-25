@@ -10,7 +10,7 @@ RUN git clone --depth 1 --branch v3.6.1 https://github.com/mozilla/sops.git $GOP
 RUN make install
 
 ###############################################################################
-FROM argoproj/argocd:v1.7.6
+FROM argoproj/argocd:v2.0.0
 
 # Switch to root user to perform installation
 USER root
