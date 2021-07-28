@@ -6,11 +6,11 @@ RUN apt-get install --yes \
     git
 
 WORKDIR $GOPATH/github.com/mozilla/sops
-RUN git clone --depth 1 --branch v3.6.1 https://github.com/mozilla/sops.git $GOPATH/github.com/mozilla/sops
+RUN git clone --depth 1 --branch v3.7.1 https://github.com/mozilla/sops.git $GOPATH/github.com/mozilla/sops
 RUN make install
 
 ###############################################################################
-FROM argoproj/argocd:v2.0.0
+FROM argoproj/argocd:v2.0.5
 
 # Switch to root user to perform installation
 USER root
@@ -27,11 +27,11 @@ RUN apt-get update && \
 # Install awscli
 RUN pip3 install awscli
 
-# Install Helm 3.1.2
+# Install Helm 3.6.3
 COPY install-helm3.sh .
-RUN ./install-helm3.sh --no-sudo --version v3.1.2
+RUN ./install-helm3.sh --no-sudo --version v3.6.3
 
-# Install sops built binary\
+# Copy sops built binary
 COPY --from=sops /go/bin/sops /usr/local/bin
 
 # Setup AWS CodeCommit Git credential helper
