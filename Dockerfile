@@ -42,7 +42,7 @@ RUN git config --system credential.UseHttpPath true
 USER argocd
 
 # Install Helm Secrets
-RUN helm plugin install https://github.com/rocketspacer/helm-secrets
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v3.11.0
 
 # Setup default AWS region
 RUN aws configure set region ap-southeast-1
