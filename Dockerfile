@@ -10,7 +10,7 @@ RUN git clone --depth 1 --branch v3.7.1 https://github.com/mozilla/sops.git $GOP
 RUN make install
 
 ###############################################################################
-FROM argoproj/argocd:v2.0.5
+FROM argoproj/argocd:v2.2.2
 
 # Switch to root user to perform installation
 USER root
@@ -29,7 +29,7 @@ RUN pip3 install awscli
 
 # Install Helm 3.6.3
 COPY install-helm3.sh .
-RUN ./install-helm3.sh --no-sudo --version v3.6.3
+RUN ./install-helm3.sh --no-sudo --version v3.7.2
 
 # Copy sops built binary
 COPY --from=sops /go/bin/sops /usr/local/bin
